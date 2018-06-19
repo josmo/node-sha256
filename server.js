@@ -18,6 +18,7 @@ app.listen(appPort, () => {
 router.post('/messages/', (req,res) => {
   const shaValue = sha(req.body.message);
   cache.put(shaValue, req.body.message);
+  console.log(shaValue);
   res.json({ digest:shaValue })
 });
 
