@@ -9,7 +9,7 @@ Post '{"message":"something"}' content-type application/json to https://node-sha
 
 Get https://node-sha256.grannec.com/v1/messages/:shaValue - gets back the message, 404 if none exsists
 
-Deployed on k8s, with ingress ngix lb and letsencrypt
+Deployed on k8s, with nginx ingress and uses letsencrypt for ssl
 
 
 ### Bottleneck
