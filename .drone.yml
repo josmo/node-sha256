@@ -1,0 +1,15 @@
+pipeline:
+  npm_install:
+    image: node:10.2.1
+    commands:
+      - env
+      - yarn
+  publish:
+    image: plugins/docker
+    username: josmo
+    secrets: [ docker_password ]
+    repo: josmo/node-sha256
+    auto_tag: true
+    file: Dockerfile
+    when:
+      event: [ push, tag ]
