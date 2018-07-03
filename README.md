@@ -9,6 +9,9 @@ Post '{"message":"something"}' content-type application/json to https://node-sha
 
 Get https://node-sha256.grannec.com/v1/messages/:shaValue - gets back the message, 404 if none exsists
 
+Get https://node-sha256.grannec.com/v1/xs/:stringValue - if you set stringValue '1x1x' will return an array of all the binary variations for in place of x
+
+
 Deployed on k8s, with nginx ingress and uses letsencrypt for ssl
 
 
