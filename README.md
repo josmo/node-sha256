@@ -11,6 +11,7 @@ Get https://node-sha256.grannec.com/v1/messages/:shaValue - gets back the messag
 
 Get https://node-sha256.grannec.com/v1/xs/:stringValue - if you set stringValue '1x1x' will return an array of all the binary variations for in place of x
 
+Get https://node-sha256.grannec.com/v1/items/:value - if you set value to '1500' it will return the closest under matching pair from the itemOptions map in server.js
 
 Deployed on k8s, with nginx ingress and uses letsencrypt for ssl
 

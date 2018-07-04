@@ -39,7 +39,6 @@ router.get('/healthcheck', (req, res) => {
 });
 
 
-
 router.get('/xs/:id', (req, res) => {
   const value = `${req.params.id}`;
 
@@ -69,5 +68,44 @@ router.post('/items/', (req,res) => {
 });
 
 
+//Should probably have better variable names ;) also, I'd rather have a functional solutions but heh
+router.get('/items/:id', (req, res) => {
+  const value = req.params.id;
+  if (itemOptions[0].price + itemOptions[1].price > value) {
+    res.json({message: 'No can do!'})
+  } else {
+    let value1 = itemOptions[0];
+    let value2 = itemOptions[1];
+    let hitMax = false;
+    for (let loc1 = 0; loc1 < itemOptions.length && !hitMax; loc1++){
+      if (itemOptions[loc1].price + itemOptions[loc1+1].price > value){
+        hitMax=true;
+        break;
+      }
+      let hitMax2 = false;
+      for (let loc2 = loc1 + 1; loc2 < itemOptions.length && !hitMax2; loc2++) {
+        if (itemOptions[loc1].price+ itemOptions[loc2].price > value){
+          hitMax2=true;
+          break;
+        }
+        if (value - (itemOptions[loc1].price + itemOptions[loc2].price) < (value - (value1.price + value2.price))){
+          value1 = itemOptions[loc1];
+          value2 = itemOptions[loc2];
+        }
+      }
 
+    }
 
+    console.log([value1, value2]);
+    res.json([value1, value2]);
+  }
+
+});
+
+const itemOptions = [
+  {name:'CandyBar', price:500},
+  {name:'PaperbackBook', price:700},
+  {name:'Detergent', price:1000},
+  {name:'Headphones',price:1400},
+  {name:'Earmuffs', price:2000},
+  {name:'BluetoothStereo',price:6000}];
