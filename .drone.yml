@@ -20,7 +20,7 @@ pipeline:
     secrets: [ kubernetes_token, kubernetes_url ]
     namespaces: josmo
     deployment_names: node-sha256
-    docker_image: "josmo/node-sha256"
+    docker_image: "josmo/node-sha256:${DRONE_TAG}"
     container_names: node-sha256
     when:
       event: [ tag ]
