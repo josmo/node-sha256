@@ -47,7 +47,7 @@ router.get('/xs/:id', (req, res) => {
 
   const result = [];
 
-  //I don't like mutating arrays like this. But this is just the quick solution
+  //I don't like mutating arrays like this. But this is just the quick solution, would rather it be declarative,
   for (let variation = 0; variation < Math.pow(2, count); variation++) {
     const combo = [];
     for (let pos = 0; pos < count; pos++) {
@@ -68,36 +68,38 @@ router.post('/items/', (req,res) => {
 });
 
 
-//Should probably have better variable names ;) also, I'd rather have a functional solutions but heh
 router.get('/items/:id', (req, res) => {
-  const value = req.params.id;  //TODO: value -> couponAmmount
-  if (itemOptions[0].price + itemOptions[1].price > value) { //TODO: itemOptions Should be able to update via api
+  const couponAmmount = req.params.id;
+
+  // TODO: I'd rather have a declarite solution in the long run
+  if (itemOptions[0].price + itemOptions[1].price > couponAmmount) {
     res.json({message: 'No can do!'})
   } else {
-    let value1 = itemOptions[0]; //TODO: value1 -> bestItem1
-    let value2 = itemOptions[1]; //TODO: value2 -> bestItem2
-    let hitMax = false; //TODO hitMax -> hitAllMax
-    for (let loc1 = 0; loc1 < itemOptions.length && !hitMax; loc1++){
-      if (itemOptions[loc1].price + itemOptions[loc1+1].price > value){
-        hitMax=true;
+    let bestItem1 = itemOptions[0];
+    let bestItem2 = itemOptions[1];
+    let hitAllMax = false;
+
+    for (let loc1 = 0; loc1 < itemOptions.length && !hitAllMax; loc1++){
+      if (itemOptions[loc1].price + itemOptions[loc1+1].price > couponAmmount){
+        hitAllMax=true;
         break;
       }
-      let hitMax2 = false; //TODO hitMax2 hitItem2Max
-      for (let loc2 = loc1 + 1; loc2 < itemOptions.length && !hitMax2; loc2++) {
-        if (itemOptions[loc1].price+ itemOptions[loc2].price > value){
-          hitMax2=true;
+      let hitItem2Max = false;
+      for (let loc2 = loc1 + 1; loc2 < itemOptions.length && !hitItem2Max; loc2++) {
+        if (itemOptions[loc1].price+ itemOptions[loc2].price > couponAmmount){
+          hitItem2Max=true;
           break;
         }
-        if (value - (itemOptions[loc1].price + itemOptions[loc2].price) < (value - (value1.price + value2.price))){
-          value1 = itemOptions[loc1];
-          value2 = itemOptions[loc2];
+        if (couponAmmount - (itemOptions[loc1].price + itemOptions[loc2].price) < (couponAmmount - (bestItem1.price + bestItem2.price))){
+          bestItem1 = itemOptions[loc1];
+          bestItem2 = itemOptions[loc2];
         }
       }
 
     }
 
-    console.log([value1, value2]);
-    res.json([value1, value2]);
+    console.log([bestItem1, bestItem2]);
+    res.json([bestItem1, bestItem2]);
   }
 
 });
