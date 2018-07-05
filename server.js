@@ -70,19 +70,19 @@ router.post('/items/', (req,res) => {
 
 //Should probably have better variable names ;) also, I'd rather have a functional solutions but heh
 router.get('/items/:id', (req, res) => {
-  const value = req.params.id;
-  if (itemOptions[0].price + itemOptions[1].price > value) {
+  const value = req.params.id;  //TODO: value -> couponAmmount
+  if (itemOptions[0].price + itemOptions[1].price > value) { //TODO: itemOptions Should be able to update via api
     res.json({message: 'No can do!'})
   } else {
-    let value1 = itemOptions[0];
-    let value2 = itemOptions[1];
-    let hitMax = false;
+    let value1 = itemOptions[0]; //TODO: value1 -> bestItem1
+    let value2 = itemOptions[1]; //TODO: value2 -> bestItem2
+    let hitMax = false; //TODO hitMax -> hitAllMax
     for (let loc1 = 0; loc1 < itemOptions.length && !hitMax; loc1++){
       if (itemOptions[loc1].price + itemOptions[loc1+1].price > value){
         hitMax=true;
         break;
       }
-      let hitMax2 = false;
+      let hitMax2 = false; //TODO hitMax2 hitItem2Max
       for (let loc2 = loc1 + 1; loc2 < itemOptions.length && !hitMax2; loc2++) {
         if (itemOptions[loc1].price+ itemOptions[loc2].price > value){
           hitMax2=true;
